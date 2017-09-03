@@ -9,11 +9,23 @@ LRESULT CALLBACK WndProc(
 	LPARAM lParam
 )
 {
+	switch (uMsg)
+	{
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+	default:
+		return DefWindowProc(hWnd, uMsg, wParam, lParam);
+	}
+
 	return 0;
 }
 
 static TCHAR szWindowClassName[] = _T("MinDX12Engine");
 static TCHAR szTitle[]           = _T("Minimal DX12 Engine");
+
+static int WindowWidth = 800;
+static int WindowHeight = 600;
 
 int CALLBACK WinMain(
 	HINSTANCE hInstance, 
@@ -46,7 +58,37 @@ int CALLBACK WinMain(
 		return 1;
 	}
 
+	HWND hWnd = CreateWindow(
+		szWindowClassName,
+		szTitle,
+		WS_OVERLAPPEDWINDOW,
+		CW_USEDEFAULT, CW_USEDEFAULT,
+		WindowWidth, WindowHeight,
+		NULL,
+		NULL,
+		hInstance,
+		NULL
+	);
 
+	if (!hWnd)
+	{
+		MessageBox(NULL,
+			_T("Call to CreateWindow failed!"),
+			_T("Fatal Error"),
+			NULL);
 
-	return 0;
+		return 1;
+	}
+
+	ShowWindow(hWnd, nCmdShow);
+	UpdateWindow(hWnd);
+
+	MSG msg;
+	while (GetMessage(&msg, NULL, 0, 0))
+	{
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+
+	return static_cast<int>(msg.lParam);
 }
