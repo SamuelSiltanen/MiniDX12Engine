@@ -2,6 +2,8 @@
 #include <Windows.h>
 #include <tchar.h>
 
+#include "Graphics.hpp"
+
 LRESULT CALLBACK WndProc(
 	HWND   hWnd,
 	UINT   uMsg,
