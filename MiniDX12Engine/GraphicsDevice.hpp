@@ -8,6 +8,12 @@
 
 namespace graphics
 {
+	class SwapChain;
+	class GraphicsPipeline;
+	class ComputePipeline;
+	class Texture;
+	class Buffer;
+
 	class GraphicsDevice
 	{
 	public:
@@ -24,6 +30,13 @@ namespace graphics
 
 		// A static factory function is used for device creation
 		static GraphicsDevice createDevice(const desc::Device& desc);
+
+		// Resources and pipelines are created by the device
+		SwapChain			createSwapChain(HWND hWnd, const desc::SwapChain& desc);
+		GraphicsPipeline	createGraphicsPipeline(const desc::GraphicsPipeline& desc);
+		ComputePipeline		createComputePipeline(const desc::ComputePipeline& desc);
+		Texture				createTexture(const desc::Texture& desc);
+		Buffer				createBuffer(const desc::Buffer& desc);
 
 	private:
 		GraphicsDevice(IDXGIAdapter1* pAdapter);

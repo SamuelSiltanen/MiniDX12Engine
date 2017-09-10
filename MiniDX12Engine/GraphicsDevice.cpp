@@ -1,4 +1,6 @@
 #include "GraphicsDevice.hpp"
+#include "GraphicsResource.hpp"
+#include "GraphicsPipeline.hpp"
 
 #include <wrl.h>
 
@@ -79,5 +81,40 @@ namespace graphics
 		getHardwareAdapter(factory.Get(), &pAdapter);
 
 		return std::move(GraphicsDevice(pAdapter));
+	}
+
+	SwapChain GraphicsDevice::createSwapChain(HWND hWnd, const desc::SwapChain& desc)
+	{
+		// TODO
+
+		return SwapChain(m_device.get(), hWnd, desc);
+	}
+
+	GraphicsPipeline GraphicsDevice::createGraphicsPipeline(const desc::GraphicsPipeline& desc)
+	{
+		// TODO
+
+		return GraphicsPipeline();
+	}
+
+	ComputePipeline GraphicsDevice::createComputePipeline(const desc::ComputePipeline& desc)
+	{
+		// TODO
+
+		return ComputePipeline();
+	}
+
+	Texture GraphicsDevice::createTexture(const desc::Texture& desc)
+	{
+		// TODO
+
+		return Texture();
+	}
+
+	Buffer GraphicsDevice::createBuffer(const desc::Buffer& desc)
+	{
+		// TODO
+
+		return Buffer();
 	}
 }

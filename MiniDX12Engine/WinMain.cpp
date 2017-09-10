@@ -88,6 +88,7 @@ int CALLBACK WinMain(
 	UpdateWindow(hWnd);
 
 	GraphicsDevice device = GraphicsDevice::createDevice(desc::Device());
+	SwapChain swapChain = device.createSwapChain(hWnd, desc::SwapChain());
 
 	MSG msg;
 	while (GetMessage(&msg, NULL, 0, 0))
