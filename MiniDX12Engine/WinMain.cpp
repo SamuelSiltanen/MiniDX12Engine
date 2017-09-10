@@ -4,6 +4,8 @@
 
 #include "Graphics.hpp"
 
+using namespace graphics;
+
 LRESULT CALLBACK WndProc(
 	HWND   hWnd,
 	UINT   uMsg,
@@ -81,9 +83,11 @@ int CALLBACK WinMain(
 
 		return 1;
 	}
-
+	
 	ShowWindow(hWnd, nCmdShow);
 	UpdateWindow(hWnd);
+
+	GraphicsDevice device = GraphicsDevice::createDevice(desc::Device());
 
 	MSG msg;
 	while (GetMessage(&msg, NULL, 0, 0))

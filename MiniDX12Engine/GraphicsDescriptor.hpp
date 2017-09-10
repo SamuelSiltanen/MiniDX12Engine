@@ -22,8 +22,8 @@ namespace graphics
 				DX12_1
 			};
 
-			DebugMode	debugMode	= Auto;
-			Capability	capability	= Auto;
+			DebugMode	debugMode	= DebugMode::Auto;
+			Capability	capability	= Capability::Auto;
 		};
 
 		struct GraphicsPipeline

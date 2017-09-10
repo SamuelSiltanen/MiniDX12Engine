@@ -1,15 +1,34 @@
 #include "GraphicsDevice.hpp"
 
-#include <dxgi1_4.h>
 #include <wrl.h>
+
+#include <utility>
 
 using namespace Microsoft::WRL;
 
 namespace graphics
 {
+	GraphicsDevice::GraphicsDevice(IDXGIAdapter1* pAdapter)
+	{
+		ID3D12Device* pDevice = m_device.get();
+		if (!SUCCEEDED(D3D12CreateDevice(pAdapter, D3D_FEATURE_LEVEL_11_0, _uuidof(ID3D12Device), (void **)&pDevice)))
+		{
+			// TODO: Error handling
+		}
+	}
+
+	GraphicsDevice::~GraphicsDevice()
+	{
+		if (m_device != nullptr)
+		{
+			m_device->Release();
+			m_device = nullptr;
+		}
+	}
+
 	void getHardwareAdapter(IDXGIFactory4* pFactory, IDXGIAdapter1** ppAdapter)
 	{
-		ppAdapter = nullptr;
+		*ppAdapter = nullptr;
 		for (uint32_t adapterIndex = 0; ; ++adapterIndex)
 		{
 			IDXGIAdapter1* pAdapter = nullptr;
@@ -58,5 +77,7 @@ namespace graphics
 
 		IDXGIAdapter1* pAdapter;
 		getHardwareAdapter(factory.Get(), &pAdapter);
+
+		return std::move(GraphicsDevice(pAdapter));
 	}
 }
